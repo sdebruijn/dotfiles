@@ -45,6 +45,7 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.config/git/gitignore
+	autocrlf = input
 [rebase]
 	autoSquash = true
 	autoStash = true

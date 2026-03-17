@@ -1,6 +1,5 @@
 # Custom fzf scripts
 
-
 choose_aws_profile() {
   # Extract profile names from the AWS config file
   selected_profile=$(

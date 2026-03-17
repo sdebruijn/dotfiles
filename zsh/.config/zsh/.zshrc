@@ -90,11 +90,15 @@ eval "$(zoxide init --cmd cd zsh)"
 # Better prompt
 eval "$(starship init zsh)"
 
-
-
 # fnm
 FNM_PATH="/home/sijmen/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="/home/sijmen/.local/share/fnm:$PATH"
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source <(kubectl completion zsh)

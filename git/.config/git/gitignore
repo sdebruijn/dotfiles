@@ -10,9 +10,19 @@ xdebug*
 
 # Docker
 docker-compose.override.yml
+docker-compose.sijmen.yml
+
+# Agents
+CLAUDE.md
+.claude/settings.local.json
 
 # lsp files
 .lsp
 
 # PHP
 phpunit.xml.dist
+
+git-commit-instructions.md
+
+# for a specific project with annoying extra files
+public/images

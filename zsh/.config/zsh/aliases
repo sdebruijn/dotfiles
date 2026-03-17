@@ -58,4 +58,6 @@ alias phpstan='./vendor/bin/phpstan analyse'
 alias stan='phpstan'
 alias check='pint & phpstan & wait'
 
+alias stern='stern --exclude "api/health|/metrics|/ready"'
+
 
