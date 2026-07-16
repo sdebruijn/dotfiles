@@ -102,3 +102,9 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 source <(kubectl completion zsh)
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/sijmen/.local/bin:$PATH"
+
+bindkey '^X^A' _expand_alias    # Ctrl-X Ctrl-A
