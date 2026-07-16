@@ -15,6 +15,7 @@ docker-compose.sijmen.yml
 # Agents
 CLAUDE.md
 .claude/settings.local.json
+.playwright-mcp
 
 # lsp files
 .lsp
@@ -26,3 +27,17 @@ git-commit-instructions.md
 
 # for a specific project with annoying extra files
 public/images
+
+.~lock.*#
+
+**/.claude/.cc-writes/
+
+# Dotfiles
+.bash_profile
+.bashrc
+.gitconfig
+.gitmodules
+.profile
+.ripgreprc
+.zprofile
+.zshrc
