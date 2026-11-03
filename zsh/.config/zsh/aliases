@@ -2,19 +2,30 @@
 
 # system
 
-alias shutdown='sudo shutdown now'
 alias restart='sudo reboot'
-alias suspend='sudo pm-suspend'
+
+if [[ "$OSTYPE" == darwin* ]]; then
+    alias shutdown='sudo shutdown -h now'
+    alias suspend='pmset sleepnow'
+else
+    alias shutdown='sudo shutdown now'
+    alias suspend='sudo pm-suspend'
+fi
 
 # colors on!
 
-alias ls='ls --color=auto'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias diff='diff --color=auto'
+
+if [[ "$OSTYPE" == darwin* ]]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias diff='diff --color=auto'
+fi
 
 # ls 
 
@@ -22,10 +33,12 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# clipboard
+# clipboard. macOS has pbcopy and pbpaste built in.
 
-alias pbcopy="xclip -selection c"
-alias pbpaste="xclip -selection c -o"
+if [[ "$OSTYPE" == linux* ]]; then
+    alias pbcopy="xclip -selection c"
+    alias pbpaste="xclip -selection c -o"
+fi
 
 # neovim
 

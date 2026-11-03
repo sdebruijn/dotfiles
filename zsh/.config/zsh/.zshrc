@@ -3,6 +3,16 @@
 HISTFILE="$XDG_STATE_HOME"/zsh/history
 [ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
 
+# +----------+
+# | HOMEBREW |
+# +----------+
+# First, so brew's tools (fzf on macOS) are on PATH and its completions are in fpath before compinit.
+if [[ "$OSTYPE" == darwin* ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # +---------+
 # | ALIASES |
 # +---------+
@@ -46,17 +56,20 @@ source $DOTFILES/zsh-autosuggestions/zsh-autosuggestions.zsh
 # +-------+
 # | FONTS |
 # +-------+
-[ ! -d "$HOME/.fonts" ] && mkdir -p "$HOME/.fonts"
-if [ ! -f "$HOME/.fonts/JetBrainsMonoNerdFont-Regular.ttf" ]; then
-    FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
-    FONT_ARCHIVE="JetBrainsMono.tar.xz"
+# Linux only. On macOS the Brewfile installs the font.
+if [[ "$OSTYPE" == linux* ]]; then
+    [ ! -d "$HOME/.fonts" ] && mkdir -p "$HOME/.fonts"
+    if [ ! -f "$HOME/.fonts/JetBrainsMonoNerdFont-Regular.ttf" ]; then
+        FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
+        FONT_ARCHIVE="JetBrainsMono.tar.xz"
 
-    echo "JetBrains Mono Nerd Font not found. Downloading..."
-    curl -fLo "$HOME/.fonts/$FONT_ARCHIVE" "$FONT_URL"
-    tar -xf "$HOME/.fonts/$FONT_ARCHIVE" -C "$HOME/.fonts/"
-    rm "$HOME/.fonts/$FONT_ARCHIVE"
-    echo "JetBrains Mono Nerd Font has been installed successfully."
-    fc-cache -fv "$HOME/.fonts"
+        echo "JetBrains Mono Nerd Font not found. Downloading..."
+        curl -fLo "$HOME/.fonts/$FONT_ARCHIVE" "$FONT_URL"
+        tar -xf "$HOME/.fonts/$FONT_ARCHIVE" -C "$HOME/.fonts/"
+        rm "$HOME/.fonts/$FONT_ARCHIVE"
+        echo "JetBrains Mono Nerd Font has been installed successfully."
+        fc-cache -fv "$HOME/.fonts"
+    fi
 fi
 
 #
@@ -82,29 +95,23 @@ source $ZDOTDIR/fzf.zsh
 # | END OF ZSHRC |
 # +--------------+
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 # Better cd
 eval "$(zoxide init --cmd cd zsh)"
 
 # Better prompt
 eval "$(starship init zsh)"
 
-# fnm
-FNM_PATH="/home/sijmen/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/sijmen/.local/share/fnm:$PATH"
-  eval "$(fnm env --use-on-cd --shell zsh)"
+# Node. Linux uses nvm. macOS uses Homebrew's node@24, which brew shellenv already put on PATH.
+if [[ "$OSTYPE" == linux* ]]; then
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 source <(kubectl completion zsh)
 
 
 # Added by Antigravity CLI installer
-export PATH="/home/sijmen/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 bindkey '^X^A' _expand_alias    # Ctrl-X Ctrl-A
