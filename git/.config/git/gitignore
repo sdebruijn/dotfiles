@@ -6,6 +6,7 @@
 .php_cs.cache
 .ignore
 dumps/
+tests-sijmen/
 xdebug*
 
 # Docker
@@ -14,8 +15,12 @@ docker-compose.sijmen.yml
 
 # Agents
 CLAUDE.md
+CONTEXT.md
 .claude/settings.local.json
 .playwright-mcp
+.scratch/
+docs/adr/
+docs/requirements/
 
 # lsp files
 .lsp
