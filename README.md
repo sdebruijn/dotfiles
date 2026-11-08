@@ -1,8 +1,8 @@
 # .dotfiles
 
-1. Clone this repo in `~/.dotfiles`.
+1. Clone this repo in `~/dotfiles`.
 ```sh
-cd ~/.dotfiles
+cd ~/dotfiles
 ```
 
 2. Copy `.zshenv`:
